@@ -1,51 +1,40 @@
 # TMI n8n Automations · Automatización de pedidos
 
-Flujos de n8n de TMI System (Tenkai Global) que llevan cada pedido desde el correo del cliente hasta el taller, sin registro manual. Dos flujos en producción.
+Dos flujos de n8n en producción en TMI System que llevan cada pedido desde el correo del cliente hasta el taller, sin registro manual.
 
-> Los flujos no se publican: contienen identificadores de las cuentas conectadas. Aquí se explica qué hacen y cómo están montados.
+> Los flujos no se publican porque contienen identificadores de cuentas conectadas. Demo disponible bajo petición.
 
-<!-- CAPTURAS: el lienzo de n8n de cada flujo, sin datos de clientes ni direcciones
-![Flujo de entrada de pedidos](./images/flujo-pedidos.png)
-![Ficha de pedido generada](./images/ficha-pedido.png)
--->
+## 1 · Pedidos: del correo al PDF
 
-## Qué resuelve
+![Flujo Pedidos Email a PDF](./images/n8n-pedidos-email-pdf.png)
 
-Los pedidos llegaban por correo y se pasaban a mano: copiar datos, crear la ficha, guardarla y avisar al taller. Era lento y fácil equivocarse.
+- Lee los correos de pedidos, solo de remitentes autorizados.
+- Extrae el número de pedido y los planos adjuntos.
+- Genera la **ficha de pedido en PDF** y la guarda en Google Drive, en carpetas por fecha que crea si no existen.
+- Registra el pedido en el panel del taller y avisa por **Telegram**.
 
-## Cómo funciona
+## 2 · Etiqueta de pedido terminado
 
-```
-Correo con el pedido
-      ↓
-n8n lee el correo y extrae los datos
-      ↓
-Genera la ficha del pedido en PDF
-      ↓
-La guarda en Google Drive
-      ↓
-Avisa al taller por Telegram
-      ↓
-El taller confirma cuando el trabajo está terminado
-```
+![Flujo Etiqueta Pedido Terminado](./images/n8n-etiqueta.png)
 
-## Qué hace
+- Se lanza al confirmar el pedido desde Telegram o desde el panel del taller.
+- Genera la **etiqueta en PDF**, la guarda en Drive, la envía por Telegram y la enlaza al pedido.
 
-- **Entrada automática de pedidos** desde el correo.
-- **Ficha de pedido en PDF** con plantilla propia de la empresa.
-- **Archivo ordenado** en Google Drive.
-- **Aviso al taller por Telegram** y confirmación de trabajo terminado.
+<table><tr>
+<td width="68%"><img src="./images/ficha-pedido.png" alt="Ficha de pedido generada"></td>
+<td width="32%"><img src="./images/etiqueta.png" alt="Etiqueta generada"></td>
+</tr></table>
+
+<sub>Documentos generados por los flujos. Los datos del cliente aparecen difuminados.</sub>
 
 ## Cómo está hecho
 
 | | |
 |---|---|
-| **Automatización** | n8n |
-| **Integraciones** | Correo electrónico · Google Drive · Telegram |
-| **Plantillas** | HTML a PDF |
-| **Infraestructura** | n8n autoalojado en servidor propio |
-
-- **Credenciales guardadas en n8n**, nunca dentro de los flujos.
+| **Automatización** | n8n autoalojado |
+| **Integraciones** | Gmail · Google Drive · Telegram · API REST de la base de datos |
+| **Documentos** | Plantillas HTML convertidas a PDF con Gotenberg |
+| **Infraestructura** | Docker en servidor propio |
 
 ## Mi papel
 

@@ -2,7 +2,7 @@
 
 Dos flujos de n8n en producción en TMI System que llevan cada pedido desde el correo del cliente hasta el taller, sin registro manual.
 
-> Los flujos no se publican porque contienen identificadores de cuentas conectadas. Demo disponible bajo petición.
+> El flujo de pedidos está exportado, sin datos sensibles, en [`sample/`](sample/). Demo disponible bajo petición.
 
 ## 1 · Pedidos: del correo al PDF
 

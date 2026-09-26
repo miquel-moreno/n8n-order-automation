@@ -1,6 +1,6 @@
-# TMI n8n Automations · Automatización de pedidos
+# n8n Order Automation · Automatización de pedidos
 
-Dos flujos de n8n en producción en TMI System que llevan cada pedido desde el correo del cliente hasta el taller, sin registro manual.
+Dos flujos de n8n en producción que llevan cada pedido de un taller de chapa desde el correo del cliente hasta el taller, sin registro manual.
 
 > El flujo de pedidos está exportado, sin datos sensibles, en [`sample/`](sample/). Demo disponible bajo petición.
 

@@ -13,6 +13,13 @@ Lleva cada pedido de un taller de chapa **del correo del cliente al taller** sin
 3. Registra el pedido en el [panel del taller](https://github.com/miquel-moreno/workshop-order-management) y avisa por **Telegram**.
 4. Cuando el pedido se termina, genera la **etiqueta en PDF** y la envía.
 
+<table><tr>
+<td width="68%"><img src="./images/ficha-pedido.png" alt="Ficha de pedido generada"></td>
+<td width="32%"><img src="./images/etiqueta.png" alt="Etiqueta generada"></td>
+</tr></table>
+
+<sub>Documentos generados por los flujos. Los datos del cliente aparecen difuminados.</sub>
+
 ## Stack
 
 n8n autoalojado · Gmail · Google Drive · Telegram · API REST · Gotenberg (HTML → PDF) · Docker

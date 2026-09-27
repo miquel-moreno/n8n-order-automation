@@ -1,40 +1,21 @@
-# n8n Order Automation · Automatización de pedidos
+# n8n Order Automation
 
-Dos flujos de n8n en producción que llevan cada pedido de un taller de chapa desde el correo del cliente hasta el taller, sin registro manual.
+Lleva cada pedido de un taller de chapa **del correo del cliente al taller** sin escribir nada a mano. En producción.
 
-> El flujo de pedidos está exportado, sin datos sensibles, en [`sample/`](sample/). Demo disponible bajo petición.
+> Flujo exportado, sin datos sensibles, en [`sample/`](sample/).
 
-## 1 · Pedidos: del correo al PDF
+![Flujo de pedidos: del correo al PDF](./images/n8n-pedidos-email-pdf.png)
 
-![Flujo Pedidos Email a PDF](./images/n8n-pedidos-email-pdf.png)
+## Cómo funciona
 
-- Lee los correos de pedidos, solo de remitentes autorizados.
-- Extrae el número de pedido y los planos adjuntos.
-- Genera la **ficha de pedido en PDF** y la guarda en Google Drive, en carpetas por fecha que crea si no existen.
-- Registra el pedido en el panel del taller y avisa por **Telegram**.
+1. Llega un correo de pedido de un remitente autorizado.
+2. n8n extrae el número de pedido y los planos, genera la **ficha en PDF** y la guarda en Google Drive.
+3. Registra el pedido en el [panel del taller](https://github.com/miquel-moreno/workshop-order-management) y avisa por **Telegram**.
+4. Cuando el pedido se termina, genera la **etiqueta en PDF** y la envía.
 
-## 2 · Etiqueta de pedido terminado
+## Stack
 
-![Flujo Etiqueta Pedido Terminado](./images/n8n-etiqueta.png)
-
-- Se lanza al confirmar el pedido desde Telegram o desde el panel del taller.
-- Genera la **etiqueta en PDF**, la guarda en Drive, la envía por Telegram y la enlaza al pedido.
-
-<table><tr>
-<td width="68%"><img src="./images/ficha-pedido.png" alt="Ficha de pedido generada"></td>
-<td width="32%"><img src="./images/etiqueta.png" alt="Etiqueta generada"></td>
-</tr></table>
-
-<sub>Documentos generados por los flujos. Los datos del cliente aparecen difuminados.</sub>
-
-## Cómo está hecho
-
-| | |
-|---|---|
-| **Automatización** | n8n autoalojado |
-| **Integraciones** | Gmail · Google Drive · Telegram · API REST de la base de datos |
-| **Documentos** | Plantillas HTML convertidas a PDF con Gotenberg |
-| **Infraestructura** | Docker en servidor propio |
+n8n autoalojado · Gmail · Google Drive · Telegram · API REST · Gotenberg (HTML → PDF) · Docker
 
 ## Mi papel
 
